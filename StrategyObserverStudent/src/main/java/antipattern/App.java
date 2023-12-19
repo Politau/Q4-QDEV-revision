@@ -29,18 +29,19 @@ public class App {
             videoList.add(new VideoData(new File("./data/mp4/video" + i + ".mp4")));
         }
         // Création du DataCompression
-        DataCompression dataCompression = new DataCompression();
-
+        DataCompression dataCompressionImage = new DataCompression(new ImageCompressionStrategy());
+        DataCompression dataCompressionSound = new DataCompression(new AudioCompressionStrategy());
+        DataCompression dataCompressionVideo = new DataCompression(new VideoCompressionStrategy());
 
         // Traitement des données avec la stratégie de traitement appropriée
         String imageResult, soundResult;
         String videoResult= "";
 
         for (int i = 0; i < 10; i++) {
-            imageResult = dataCompression.compressData(imageList.get(i));
-            soundResult = dataCompression.compressData(audioList.get(i));
+            imageResult = dataCompressionImage.processData(imageList.get(i));
+            soundResult = dataCompressionSound.processData(audioList.get(i));
             if (i < 5)
-                videoResult = dataCompression.compressData(videoList.get(i));
+                videoResult = dataCompressionVideo.processData(videoList.get(i));
             // Vérification du résultat du traitement
             System.out.println("Résultat du traitement de l'image : " + imageResult);
             System.out.println("Résultat du traitement du son : " + soundResult);
